@@ -6,3 +6,5 @@
  i hope the jars work
 
 # please, check the license
+
+ find it in .idea/LICENSE
