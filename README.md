@@ -4,3 +4,5 @@
  WASD to move
  
  i hope the jars work
+
+# please, check the license
