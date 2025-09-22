@@ -25,7 +25,7 @@ public class TileManager {
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap("/maps/world01.txt");
+        loadMap("/maps/worldnew01.txt");
     }
 
     public void getTileImage() {
@@ -41,6 +41,21 @@ public class TileManager {
         setup(8, "planks", false);
         setup(9, "grassy", false);
         setup(10, "berrybush", true);
+
+        // WATER BORDERS
+        setup(11, "water00", true);
+        setup(12, "water01", true);
+        setup(13, "water02", true);
+        setup(14, "water03", true);
+        setup(15, "water04", true);
+        setup(16, "water05", true);
+        setup(17, "water07", true);
+        setup(18, "water08", true);
+        setup(19, "water09", true);
+        setup(20, "water10", true);
+        setup(21, "water11", true);
+        setup(22, "water12", true);
+        setup(23, "water13", true);
         System.out.println("Tile loading Finished!");
     }
 
