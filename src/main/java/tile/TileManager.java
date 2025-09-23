@@ -4,14 +4,10 @@ import main.GamePanel;
 import main.UltilityTool;
 
 import javax.imageio.ImageIO;
-import javax.swing.text.Utilities;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.Buffer;
 
 public class TileManager {
     GamePanel gp;
@@ -25,7 +21,7 @@ public class TileManager {
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap("/maps/worldnew01.txt");
+        loadMap("/maps/world01.txt");
     }
 
     public void getTileImage() {
