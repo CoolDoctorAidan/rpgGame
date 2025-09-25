@@ -6,7 +6,7 @@
 
     <groupId>me.schrode</groupId>
     <artifactId>rpgGame</artifactId>
-    <version>0.1-beta-S2</version>
+    <version>0.2-beta-S1</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
