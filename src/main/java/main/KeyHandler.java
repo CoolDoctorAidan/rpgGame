@@ -47,14 +47,14 @@ public class KeyHandler implements KeyListener{
         }
 
         // DEBUG
-        if(code == KeyEvent.VK_F3) {
-            if(!debugEnabled) {
-                debugEnabled = true;
-            }
-            else if(debugEnabled) {
-                debugEnabled = false;
-            }
-        }
+//        if(code == KeyEvent.VK_F3) {
+//            if(!debugEnabled) {
+//                debugEnabled = true;
+//            }
+//            else if(debugEnabled) {
+//                debugEnabled = false;
+//            }
+//        } -- disabled for now
     }
 
     @Override
