@@ -48,6 +48,18 @@ public class UI {
         if(gp.gameState == gp.pauseState) {
             drawPauseScreen();
         }
+        if(gp.debugEnabled && gp.gameState == gp.playState) {
+            drawDebugMenu(this.gp);
+        }
+    }
+
+    public void drawDebugMenu(GamePanel gp) {
+        this.gp = gp;
+
+        String fpsText = "FPS: " + gp.currentFPS;
+
+        g2.setFont(arial_25);
+        g2.drawString(fpsText, 50, 50);
     }
 
     public void drawPauseScreen() {

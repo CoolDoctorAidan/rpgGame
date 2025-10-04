@@ -32,12 +32,12 @@ public class Player extends Entity{
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
 
         solidArea = new Rectangle();
-        solidArea.x = 1;
-        solidArea.y = 1;
+        solidArea.x = 5;
+        solidArea.y = 5;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 38;
-        solidArea.height = 38;
+        solidArea.width = 36;
+        solidArea.height = 36;
 
         setDefaultValues();
         getPlayerImage();
@@ -193,7 +193,9 @@ public class Player extends Entity{
         }
         g2.drawImage(image, screenX, screenY, null);
         // draw collider
-        // g2.setColor(Color.red);
-        // g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+        if(gp.debugEnabled && gp.gameState == gp.playState) {
+            g2.setColor(Color.red);
+            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+        }
     }
 }

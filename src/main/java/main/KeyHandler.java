@@ -1,5 +1,7 @@
 package main;
 
+import main.UI;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.security.Key;
@@ -43,6 +45,14 @@ public class KeyHandler implements KeyListener{
             }
             else if(gp.gameState == gp.pauseState) {
                 gp.gameState = gp.playState;
+            }
+        }
+        if(code == KeyEvent.VK_F3) {
+            if(!gp.debugEnabled) {
+                gp.debugEnabled = true;
+            }
+            else if(gp.debugEnabled) {
+                gp.debugEnabled = false;
             }
         }
 
