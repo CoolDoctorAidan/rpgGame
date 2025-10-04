@@ -36,8 +36,8 @@ public class Player extends Entity{
         solidArea.y = 1;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 46;
-        solidArea.height = 46;
+        solidArea.width = 38;
+        solidArea.height = 38;
 
         setDefaultValues();
         getPlayerImage();
@@ -60,7 +60,7 @@ public class Player extends Entity{
     }
 
     public void update() {
-        if (!moving) {
+        //if (!moving) {
             if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
                 if(keyH.upPressed) {
                     direction = "up";
@@ -94,22 +94,33 @@ public class Player extends Entity{
                     standCounter = 0;
                 }
             }
-        }
-        if(moving) {
+        //}
+        //if(moving) {
             // CHECK NPC COLLISION
             int npcIndex = gp.collisionCheck.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
             // IF COLLISION IS FALSE PLAYER CAN MOVE
-            if(!collisionOn) {
+        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
+            if (!collisionOn) {
                 switch (direction) {
-                    case "up": worldY -= speed; break;
-                    case "down": worldY += speed; break;
-                    case "left": worldX -= speed; break;
-                    case "right": worldX += speed; break;
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
                 }
             }
+        }
 
+        if (moving) {
             spriteCounter++;
             if(spriteCounter > 12) {
                 if (spriteNum == 1) {
@@ -119,14 +130,15 @@ public class Player extends Entity{
                 }
                 spriteCounter = 0; // reset only when toggling sprite
             }
-
-            pixelCounter += speed;
-
-            if (pixelCounter == 48) {
-                moving = false;
-                pixelCounter = 0;
-            }
         }
+
+        pixelCounter += speed;
+
+        if (pixelCounter == gp.tileSize) {
+            moving = false;
+            pixelCounter = 0;
+        }
+        //}
     }
 
     public void pickUpObject(int i) {

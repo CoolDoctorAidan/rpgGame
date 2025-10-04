@@ -220,28 +220,24 @@ public class CollisionCheck {
                 entity.solidArea.y -= entity.speed;
                 if (entity.solidArea.intersects(gp.player.solidArea)) {
                     entity.collisionOn = true;   // stop the NPC/monster
-                    gp.player.collisionOn = true; // stop the player too
                 }
                 break;
             case "down":
                 entity.solidArea.y += entity.speed;
                 if (entity.solidArea.intersects(gp.player.solidArea)) {
                     entity.collisionOn = true;
-                    gp.player.collisionOn = true;
                 }
                 break;
             case "left":
                 entity.solidArea.x -= entity.speed;
                 if (entity.solidArea.intersects(gp.player.solidArea)) {
                     entity.collisionOn = true;
-                    gp.player.collisionOn = true;
                 }
                 break;
             case "right":
                 entity.solidArea.x += entity.speed;
                 if (entity.solidArea.intersects(gp.player.solidArea)) {
                     entity.collisionOn = true;
-                    gp.player.collisionOn = true;
                 }
                 break;
         }
