@@ -12,20 +12,19 @@ import java.awt.image.DataBufferDouble;
 import java.io.IOException;
 
 public class Player extends Entity{
-    GamePanel gp;
     KeyHandler keyH;
 
     public BufferedImage image = null;
 
     public final int screenX;
     public final int screenY;
-    // public int hasKey = 0;
     int pixelCounter = 0;
-    boolean hasBoots = false;
     boolean moving = false;
     int standCounter = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
+        super(gp);
+
         this.gp = gp;
         this.keyH = keyH;
 
@@ -50,27 +49,14 @@ public class Player extends Entity{
         direction = "down";
     }
     public void getPlayerImage() {
-        up1 = setup("boy_up_1");
-        up2 = setup("boy_up_2");
-        down1 = setup("boy_down_1");
-        down2 = setup("boy_down_2");
-        left1 = setup("boy_left_1");
-        left2 = setup("boy_left_2");
-        right1 = setup("boy_right_1");
-        right2 = setup("boy_right_2");
-    }
-
-    public BufferedImage setup(String imageName) {
-        UltilityTool uTool = new UltilityTool();
-        BufferedImage scaledImage = null;
-
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-        return image;
+        up1 = setup("/player/boy_up_1");
+        up2 = setup("/player/boy_up_2");
+        down1 = setup("/player/boy_down_1");
+        down2 = setup("/player/boy_down_2");
+        left1 = setup("/player/boy_left_1");
+        left2 = setup("/player/boy_left_2");
+        right1 = setup("/player/boy_right_1");
+        right2 = setup("/player/boy_right_2");
     }
 
     public void update() {
@@ -110,21 +96,17 @@ public class Player extends Entity{
             }
         }
         if(moving) {
+            // CHECK NPC COLLISION
+            int npcIndex = gp.collisionCheck.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
+
             // IF COLLISION IS FALSE PLAYER CAN MOVE
             if(!collisionOn) {
                 switch (direction) {
-                    case "up":
-                        worldY -= speed;
-                        break;
-                    case "down":
-                        worldY += speed;
-                        break;
-                    case "left":
-                        worldX -= speed;
-                        break;
-                    case "right":
-                        worldX += speed;
-                        break;
+                    case "up": worldY -= speed; break;
+                    case "down": worldY += speed; break;
+                    case "left": worldX -= speed; break;
+                    case "right": worldX += speed; break;
                 }
             }
 
@@ -150,6 +132,12 @@ public class Player extends Entity{
     public void pickUpObject(int i) {
         if(i != 999) {
 
+        }
+    }
+
+    public void interactNPC(int i) {
+        if(i != 999) {
+            
         }
     }
 
