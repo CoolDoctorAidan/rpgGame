@@ -52,6 +52,10 @@ public class TileManager {
         setup(21, "water11", true);
         setup(22, "water12", true);
         setup(23, "water13", true);
+
+        // FURNITURE
+        setup(24, "bed", true);
+        setup(25, "chair", true);
         System.out.println("Tile loading Finished!");
     }
 

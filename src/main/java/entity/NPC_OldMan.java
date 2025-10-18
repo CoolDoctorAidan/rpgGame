@@ -12,6 +12,7 @@ public class NPC_OldMan extends Entity{
         speed = 1;
 
         getImage();
+        setDialogue();
     }
 
     public void getImage() {
@@ -23,6 +24,14 @@ public class NPC_OldMan extends Entity{
         left2 = setup("/npc/oldman_left_2");
         right1 = setup("/npc/oldman_right_1");
         right2 = setup("/npc/oldman_right_2");
+    }
+
+    public void setDialogue() {
+        dialogues[0] = "Hey, bud.";
+        dialogues[1] = "It could be dangerous out in the \nwild.";
+        dialogues[2] = "What brings you out here?";
+        dialogues[3] = "I used to be a great wizard but \nnow... Now i'm just an ordinary \nman.";
+        dialogues[4] = "Good luck out there, I will be \navailable if you need me later!";
     }
 
     public void setAction() {
@@ -47,5 +56,8 @@ public class NPC_OldMan extends Entity{
 
             actionLockCounter = 0;
         }
+    }
+    public void speak() {
+        super.speak();
     }
 }

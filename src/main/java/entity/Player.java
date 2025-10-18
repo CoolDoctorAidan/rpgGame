@@ -32,12 +32,12 @@ public class Player extends Entity{
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
 
         solidArea = new Rectangle();
-        solidArea.x = 5;
-        solidArea.y = 5;
+        solidArea.x = 8;
+        solidArea.y = 8;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 36;
-        solidArea.height = 36;
+        solidArea.width = 32;
+        solidArea.height = 32;
 
         setDefaultValues();
         getPlayerImage();
@@ -149,8 +149,12 @@ public class Player extends Entity{
 
     public void interactNPC(int i) {
         if(i != 999) {
-            
+            if(gp.keyH.enterPressed == true) {
+                gp.gameState = gp.dialogueState;
+                gp.npc[i].speak();
+            }
         }
+        gp.keyH.enterPressed = false;
     }
 
     public void draw(Graphics2D g2) {

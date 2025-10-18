@@ -8,7 +8,7 @@ import java.security.Key;
 
 public class KeyHandler implements KeyListener{
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
     // public boolean showDebug = false;
 
     // DEBUG
@@ -27,18 +27,39 @@ public class KeyHandler implements KeyListener{
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if(code == KeyEvent.VK_W) {
-            upPressed = true;
+        if(gp.gameState == gp.playState) {
+            if(code == KeyEvent.VK_W) {
+                upPressed = true;
+            }
+            if(code == KeyEvent.VK_S) {
+                downPressed = true;
+            }
+            if(code == KeyEvent.VK_A) {
+                leftPressed = true;
+            }
+            if(code == KeyEvent.VK_D) {
+                rightPressed = true;
+            }
+            if(code == KeyEvent.VK_ENTER) {
+                enterPressed = true;
+            }
+            if(code == KeyEvent.VK_F3) {
+                if(!gp.debugEnabled) {
+                    gp.debugEnabled = true;
+                }
+                else if(gp.debugEnabled) {
+                    gp.debugEnabled = false;
+                }
+            }
         }
-        if(code == KeyEvent.VK_S) {
-            downPressed = true;
+        // DIALOGUE STUFF
+        else if(gp.gameState == gp.dialogueState) {
+            if(code == KeyEvent.VK_ENTER) {
+                gp.gameState = gp.playState;
+            }
         }
-        if(code == KeyEvent.VK_A) {
-            leftPressed = true;
-        }
-        if(code == KeyEvent.VK_D) {
-            rightPressed = true;
-        }
+
+        // PAUSE STUFF
         if(code == KeyEvent.VK_ESCAPE) {
             if(gp.gameState == gp.playState) {
                 gp.gameState = gp.pauseState;
@@ -47,24 +68,6 @@ public class KeyHandler implements KeyListener{
                 gp.gameState = gp.playState;
             }
         }
-        if(code == KeyEvent.VK_F3) {
-            if(!gp.debugEnabled) {
-                gp.debugEnabled = true;
-            }
-            else if(gp.debugEnabled) {
-                gp.debugEnabled = false;
-            }
-        }
-
-        // DEBUG
-//        if(code == KeyEvent.VK_F3) {
-//            if(!debugEnabled) {
-//                debugEnabled = true;
-//            }
-//            else if(debugEnabled) {
-//                debugEnabled = false;
-//            }
-//        } -- disabled for now
     }
 
     @Override
