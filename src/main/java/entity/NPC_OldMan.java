@@ -27,11 +27,13 @@ public class NPC_OldMan extends Entity{
     }
 
     public void setDialogue() {
-        dialogues[0] = "Hey, bud.";
-        dialogues[1] = "It could be dangerous out in the \nwild.";
-        dialogues[2] = "What brings you out here?";
-        dialogues[3] = "I used to be a great wizard but \nnow... Now i'm just an ordinary \nman.";
-        dialogues[4] = "Good luck out there, I will be \navailable if you need me later!";
+        dialogues[0] = "Hey, pal. Mind if you can do me \na favor?";
+        dialogues[1] = "Someone stole my DOG!";
+        dialogues[2] = "Would you be able to help me \nfind bubba?";
+        dialogues[3] = "If you do, I will reward you \ngreatly!";
+        dialogues[4] = "He's all I've got left and he's \ngetting pretty old";
+        dialogues[5] = "I will do anything for you to get \nme closer to this thief.";
+        dialogues[6] = "Good luck out there, I will be \navailable if you need me later!";
     }
 
     public void setAction() {

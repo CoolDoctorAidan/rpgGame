@@ -85,7 +85,7 @@ public class UI {
         // TITLE NAME
         g2.setFont(kiwiSoda);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,118F));
-        String text = "RPG Game";
+        String text = "Bubba's Quest";
         int x = getXforCenteredText(text);
         int y = gp.tileSize*3;
 
