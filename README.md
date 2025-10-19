@@ -1,4 +1,4 @@
-# rpgGame
+# Bubba's Quest
  small java 2d rpg game
 
  WASD to move
