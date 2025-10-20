@@ -1,6 +1,8 @@
 package main;
 
+import object.OBJ_Heart;
 import object.OBJ_Key;
+import object.SuperObject;
 
 import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
@@ -15,12 +17,15 @@ public class UI {
     Graphics2D g2;
     Font kiwiSoda, pixeled, kiwiSoda_32, pixeled_18;
 
+    BufferedImage heart_full, heart_half, heart_blank;
+
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
     public boolean gameFinished = false;
     public String currentDialogue = "";
     public int commandNum = 0;
+    public int titleScreenState = 0; // 0: main title screen, 1: difficulty selection
 
     double playTime;
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
@@ -41,6 +46,11 @@ public class UI {
             throw new RuntimeException(e);
         }
 
+        // CREATE HUD OBJECT
+        SuperObject heart = new OBJ_Heart(gp);
+        heart_full = heart.image;
+        heart_half = heart.image2;
+        heart_blank = heart.image3;
     }
 
     public void showMessage(String text) {
@@ -61,7 +71,7 @@ public class UI {
         }
         // PLAY STATE
         if(gp.gameState == gp.playState) {
-            // do playstate stuff
+            drawPlayerLife();
         }
         // PAUSE STATE
         if(gp.gameState == gp.pauseState) {
@@ -73,60 +83,144 @@ public class UI {
         }
         // DIALOGUE STATE
         if(gp.gameState == gp.dialogueState) {
+            drawPlayerLife();
             drawDialogueScreen();
         }
     }
 
+    public void drawPlayerLife() {
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int i = 0;
+
+        // DISPLAY MAX LIFE
+        while(i < gp.player.maxLife/2) {
+            g2.drawImage(heart_blank, x, y, null);
+            i++;
+            x += gp.tileSize;
+        }
+
+        // RESET
+        x = gp.tileSize/2;
+        y = gp.tileSize/2;
+        i = 0;
+
+        // DRAW CURRENT LIFE
+        while(i < gp.player.life) {
+            g2.drawImage(heart_half, x, y, null);
+            i++;
+            if(i < gp.player.life) {
+                g2.drawImage(heart_full, x, y, null);
+            }
+            i++;
+            x += gp.tileSize;
+        }
+    }
+
     public void drawTitleScreen() {
-        // bg color
-        //g2.setColor(new Color(70,120,80));
-        //g2.fillRect(0,0, gp.screenWidth, gp.screenHeight);
+        if(titleScreenState == 0) {
+            // bg color
+            //g2.setColor(new Color(70,120,80));
+            //g2.fillRect(0,0, gp.screenWidth, gp.screenHeight);
 
-        // TITLE NAME
-        g2.setFont(kiwiSoda);
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,118F));
-        String text = "Bubba's Quest";
-        int x = getXforCenteredText(text);
-        int y = gp.tileSize*3;
+            // TITLE NAME
+            g2.setFont(kiwiSoda);
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD,118F));
+            String text = "Bubba's Quest";
+            int x = getXforCenteredText(text);
+            int y = gp.tileSize*3;
 
-        // SHADOW
-        g2.setColor(Color.gray);
-        g2.drawString(text,x+5,y+5);
+            // SHADOW
+            g2.setColor(Color.gray);
+            g2.drawString(text,x+5,y+5);
 
-        g2.setColor(Color.white);
-        g2.drawString(text, x, y);
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
 
-        // CHARACTER IMAGE
-        x = gp.screenWidth/2 - (gp.tileSize*2)/2;
-        y += gp.tileSize*2;
-        g2.drawImage(gp.npc[0].down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
+            // CHARACTER IMAGE
+            x = gp.screenWidth/2 - (gp.tileSize*2)/2;
+            y += gp.tileSize*2;
+            g2.drawImage(gp.npc[97].down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
 
-        //MENU
-        g2.setFont(pixeled);
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,34F));
+            //MENU
+            g2.setFont(pixeled);
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN,34F));
 
-        text = "NEW GAME";
-        x = getXforCenteredText(text);
-        y += gp.tileSize*4;
-        g2.drawString(text, x, y);
-        if(commandNum == 0) {
-            g2.drawString("-", x-gp.tileSize, y);
+            text = "NEW GAME";
+            x = getXforCenteredText(text);
+            y += gp.tileSize*4;
+            g2.drawString(text, x, y);
+            if(commandNum == 0) {
+                g2.drawString("-", x-gp.tileSize, y);
+            }
+
+            text = "LOAD GAME";
+            x = getXforCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if(commandNum == 1) {
+                g2.drawString("-", x-gp.tileSize, y);
+            }
+
+            text = "QUIT";
+            x = getXforCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if(commandNum == 2) {
+                g2.drawString("-", x-gp.tileSize, y);
+            }
         }
+        else if(titleScreenState == 1) {
+            // DIFFICULTY SELECTION SCREEN
+            g2.setColor(Color.white);
+            g2.setFont(kiwiSoda);
+            g2.setFont(g2.getFont().deriveFont(56F));
 
-        text = "LOAD GAME";
-        x = getXforCenteredText(text);
-        y += gp.tileSize;
-        g2.drawString(text, x, y);
-        if(commandNum == 1) {
-            g2.drawString("-", x-gp.tileSize, y);
-        }
+            String text = "Select the Difficulty";
+            int x = getXforCenteredText(text);
+            int y = gp.tileSize*3;
+            g2.drawString(text, x, y);
 
-        text = "QUIT";
-        x = getXforCenteredText(text);
-        y += gp.tileSize;
-        g2.drawString(text, x, y);
-        if(commandNum == 2) {
-            g2.drawString("-", x-gp.tileSize, y);
+            //SHADOW
+            g2.setColor(Color.gray);
+            g2.drawString(text,x+3,y+3);
+
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+
+            g2.setFont(pixeled);
+            g2.setFont(g2.getFont().deriveFont(24F));
+            text = "Easy";
+            x = getXforCenteredText(text);
+            y += gp.tileSize*2;
+            g2.drawString(text, x, y);
+            if(commandNum == 0) {
+                g2.drawString("-", x-gp.tileSize, y);
+            }
+
+            text = "Normal";
+            x = getXforCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if(commandNum == 1) {
+                g2.drawString("-", x-gp.tileSize, y);
+            }
+
+            text = "Hard";
+            x = getXforCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if(commandNum == 2) {
+                g2.drawString("-", x-gp.tileSize, y);
+            }
+
+            text = "Go Back";
+            x = getXforCenteredText(text);
+            y += gp.tileSize*1.5;
+            g2.drawString(text, x, y);
+            if(commandNum == 3) {
+                g2.drawString("-", x-gp.tileSize, y);
+            }
         }
     }
 
@@ -136,7 +230,7 @@ public class UI {
         String fpsText = "FPS: " + gp.currentFPS;
 
         g2.setFont(pixeled_18);
-        g2.drawString(fpsText, 50, 50);
+        g2.drawString(fpsText, gp.tileSize/2, gp.tileSize*2);
     }
 
     public void drawPauseScreen() {

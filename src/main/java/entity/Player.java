@@ -33,11 +33,11 @@ public class Player extends Entity{
 
         solidArea = new Rectangle();
         solidArea.x = 8;
-        solidArea.y = 8;
+        solidArea.y = 16;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 32;
-        solidArea.height = 32;
+        solidArea.width = 28;
+        solidArea.height = 28;
 
         setDefaultValues();
         getPlayerImage();
@@ -47,6 +47,18 @@ public class Player extends Entity{
         worldY = gp.tileSize * 25;
         speed = 4;
         direction = "down";
+
+        // PLAYER STATUS
+        if(gp.difficulty == 0) {
+            maxLife = 10;
+        }
+        if(gp.difficulty == 1) {
+            maxLife = 8;
+        }
+        if(gp.difficulty == 2) {
+            maxLife = 6;
+        }
+        life = maxLife;
     }
     public void getPlayerImage() {
         up1 = setup("/player/boy_up_1");

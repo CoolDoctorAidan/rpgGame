@@ -27,32 +27,73 @@ public class KeyHandler implements KeyListener{
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        //TITLE
+        // TITLE
         if(gp.gameState == gp.titleState) {
-            if(code == KeyEvent.VK_UP || code == KeyEvent.VK_W) {
-                gp.ui.commandNum--;
-                if(gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 2;
+            if(gp.ui.titleScreenState == 0) {
+                if(code == KeyEvent.VK_UP || code == KeyEvent.VK_W) {
+                    gp.ui.commandNum--;
+                    if(gp.ui.commandNum < 0) {
+                        gp.ui.commandNum = 2;
+                    }
+                }
+                if(code == KeyEvent.VK_DOWN || code == KeyEvent.VK_S) {
+                    gp.ui.commandNum++;
+                    if(gp.ui.commandNum > 2) {
+                        gp.ui.commandNum = 0;
+                    }
+                }
+                if(code == KeyEvent.VK_ENTER || code == KeyEvent.VK_E) {
+                    if(gp.ui.commandNum == 0) {
+                        // new game → go to difficulty menu
+                        gp.ui.titleScreenState = 1;
+                        gp.ui.commandNum = 0; // reset selection
+                    }
+                    if(gp.ui.commandNum == 1) {
+                        // load game
+                    }
+                    if(gp.ui.commandNum == 2) {
+                        // quit
+                        System.exit(0);
+                    }
                 }
             }
-            if(code == KeyEvent.VK_DOWN || code == KeyEvent.VK_S) {
-                gp.ui.commandNum++;
-                if(gp.ui.commandNum > 2) {
-                    gp.ui.commandNum = 0;
+
+            else if(gp.ui.titleScreenState == 1) {
+                if(code == KeyEvent.VK_UP || code == KeyEvent.VK_W) {
+                    gp.ui.commandNum--;
+                    if(gp.ui.commandNum < 0) {
+                        gp.ui.commandNum = 3;
+                    }
                 }
-            }
-            if(code == KeyEvent.VK_ENTER || code == KeyEvent.VK_E) {
-                if(gp.ui.commandNum == 0) {
-                    // new game
-                    gp.gameState = gp.playState;
-                    gp.playMusic(0);
+                if(code == KeyEvent.VK_DOWN || code == KeyEvent.VK_S) {
+                    gp.ui.commandNum++;
+                    if(gp.ui.commandNum > 3) {
+                        gp.ui.commandNum = 0;
+                    }
                 }
-                if(gp.ui.commandNum == 1) {
-                    // load game
-                }
-                if(gp.ui.commandNum == 2) {
-                    // quit
-                    System.exit(0);
+                if(code == KeyEvent.VK_ENTER || code == KeyEvent.VK_E) {
+                    if(gp.ui.commandNum == 0) { // easy
+                        gp.difficulty = 0;
+                        gp.player.setDefaultValues();
+                        gp.gameState = gp.playState;
+                        gp.playMusic(0);
+                    }
+                    if(gp.ui.commandNum == 1) { // normal
+                        gp.difficulty = 1;
+                        gp.player.setDefaultValues();
+                        gp.gameState = gp.playState;
+                        gp.playMusic(0);
+                    }
+                    if(gp.ui.commandNum == 2) { // hard
+                        gp.difficulty = 2;
+                        gp.player.setDefaultValues();
+                        gp.gameState = gp.playState;
+                        gp.playMusic(0);
+                    }
+                    if(gp.ui.commandNum == 3) {
+                        gp.ui.titleScreenState = 0; // back
+                        gp.ui.commandNum = 0;
+                    }
                 }
             }
         }
